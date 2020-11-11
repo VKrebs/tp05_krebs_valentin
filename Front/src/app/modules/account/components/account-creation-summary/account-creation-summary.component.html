@@ -1,0 +1,12 @@
+<div class="row">
+    <div id="mainContainer" class="col-md-4 offset-md-4" *ngIf="account | async as account">
+        <p>Le formulaire a bien été soumis! Voici un récapitulatif de vos informations :</p>
+        <p>{{account.civility}} {{account.firstname | titlecase }} {{account.lastname | uppercase}}</p>
+        <p>{{account.address}}</p>
+        <p>{{account.postalcode}} {{account.city | uppercase}}</p>
+        <p>{{account.country | uppercase}}</p> <br>
+        <p>{{account.phone | phoneNumber}}</p>
+        <p>{{account.email}}</p>
+        <p>{{account.login}}</p>
+    </div>
+</div>

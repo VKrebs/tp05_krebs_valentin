@@ -1,0 +1,22 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prix Unitaire</th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Suppression</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of (productsList | async)">
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.product.price }}€</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item | basketProductLinePrice | number: '1.2-2' }}€</td>
+            <td><button class="btn btn-danger" (click)="removeFromBasket(item)">Supprimer</button></td>
+        </tr>
+    </tbody>
+
+    <p class="font-weight-bold p-3 mt-3"> Total price : {{ productsList | basketTotalPrice | number: '1.2-2' }}€ </p>
+</table>

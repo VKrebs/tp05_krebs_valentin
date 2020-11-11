@@ -1,0 +1,242 @@
+<form *ngIf="validated == false" [formGroup]="accountForm" (ngSubmit)="onSubmit()" class="form">
+    <div class="row">
+        <div class="col-md-4 offset-md-4 rounded border-0">
+            <h1 class="text-center">Formulaire de création de compte</h1>
+        </div>
+        
+        <div id="mainContainer" class="col-md-4 offset-md-4 rounded border-0">
+
+            <!-- CIVILITY -->
+            <label>Civilité</label>
+            <div class="container">
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="civility" formControlName="civility" value="Monsieur" > Monsieur
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="civility" formControlName="civility" value="Madame"> Madame
+                </div>
+                <div class="container" *ngIf="isValidInput('civility')">
+                    <div class="row">
+                        <span class="text-danger" *ngIf="accountForm.controls['civility'].errors?.required">
+                            Une case doit être cochée!
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NAME INFORMATIONS -->
+            <div class="form-group">
+                <label for="lastname">Nom</label>
+                <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Dupont"
+                    [value]="accountForm.get('lastName').value | uppercase"
+                    formControlName="lastName">
+                <div class="container" *ngIf="isValidInput('lastName')">
+                    <div class="row">
+                        <span class="text-danger" *ngIf="accountForm.controls['lastName'].errors?.required">
+                            Le nom doit être renseigné!
+                        </span>
+                    </div>
+                    <div class="row">
+                        <span class="text-danger" *ngIf="accountForm.controls['lastName'].errors?.pattern">
+                            Le nom doit contenir uniquement des lettres!
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="firstname">Prénom</label>
+                <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Jean"
+                    [value]="accountForm.get('firstName').value | titlecase"
+                    formControlName="firstName">
+                    <div class="container" *ngIf="isValidInput('firstName')">
+                        <div class="row">
+                            <span class="text-danger" *ngIf="accountForm.controls['firstName'].errors?.required">
+                                Le nom doit être renseigné!
+                            </span>
+                        </div>
+                        <div class="row">
+                            <span class="text-danger" *ngIf="accountForm.controls['firstName'].errors?.pattern">
+                                Le nom doit contenir uniquement des lettres!
+                            </span>
+                        </div>
+                    </div>
+            </div>
+
+            <!-- ADDRESS INFORMATIONS -->
+            <div class="form-group">
+                <label for="address">Adresse</label>
+                <input type="text" class="form-control" name="address" id="address"
+                    formControlName="address"
+                    placeholder="23, rue du Fort">
+                <div class="container" *ngIf="isValidInput('address')">
+                    <div class="row">
+                        <span class="text-danger" *ngIf="accountForm.controls['address'].errors.required">
+                            L'adresse doit être renseignée!
+                        </span>
+                    </div>
+                    <div class="row">
+                        <span class="text-danger" *ngIf="accountForm.controls['address'].errors?.pattern">
+                            L'adresse doit commencer par le numéro de rue et être suivie par le nom de celle-ci!
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="cp">Code Postal</label>
+                <input type="text" class="form-control" name="cp" id="cp"
+                    formControlName="cp">
+                <div class="container" *ngIf="isValidInput('cp')">
+                    <div class="row">
+                        <span class="text-danger" *ngIf="accountForm.controls['cp'].errors?.required">
+                            Le code postal doit être renseigné!
+                        </span>
+                    </div>
+                    <div class="row">
+                        <span class="text-danger" *ngIf="accountForm.controls['cp'].errors?.pattern">
+                            Le code postal doit contenir 5 chiffres!
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="city">Ville</label>
+                <input type="text" class="form-control" name="city" id="city"
+                    formControlName="city"
+                    [value]="accountForm.get('city').value | uppercase">
+                <div class="container" *ngIf="isValidInput('city')">
+                    <div class="row">
+                        <span class="text-danger" *ngIf="accountForm.controls['city'].errors?.required">
+                            La ville doit être renseignée!
+                        </span>
+                    </div>
+                    <div class="row">
+                        <span class="text-danger" *ngIf="accountForm.controls['city'].errors?.pattern">
+                            La ville doit contenir uniquement des lettres!
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="country">Pays</label>
+                <input type="text" class="form-control" name="country" id="country"
+                    formControlName="country"
+                    [value]="accountForm.get('country').value | uppercase">
+                <div class="container" *ngIf="isValidInput('country')">
+                    <div class="row">
+                        <span class="text-danger" *ngIf="accountForm.controls['country'].errors?.required">
+                            Le pays doit être renseignée!
+                        </span>
+                    </div>
+                    <div class="row">
+                        <span class="text-danger" *ngIf="accountForm.controls['country'].errors?.pattern">
+                            Le pays doit contenir uniquement des lettres!
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTACT INFORMATIONS -->
+            <div class="form-group">
+                <label for="phone">Téléphone</label>
+                <input type="phone" class="form-control" name="phone" id="phone" placeholder="+33 1 14 28 72 46"
+                    formControlName="phone">
+                <div class="container" *ngIf="isValidInput('phone')">
+                    <div class="row">
+                        <span class="text-danger" *ngIf="accountForm.controls['phone'].errors?.required">
+                            Le numéro de téléphone doit être renseigné!
+                        </span>
+                    </div>
+                    <div class="row">
+                        <span class="text-danger" *ngIf="accountForm.controls['phone'].errors?.pattern">
+                            Le numéro de téléphone doit être au format international (commencer par +[code pays]).
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="nom@domaine.com"
+                    formControlName="email">
+                    <div class="container" *ngIf="isValidInput('email')">
+                        <div class="row">
+                            <span class="text-danger" *ngIf="accountForm.controls['email'].errors?.required">
+                                L'email doit être renseigné!
+                            </span>
+                        </div>
+                        <div class="row">
+                            <span class="text-danger" *ngIf="accountForm.controls['email'].errors?.email">
+                                Entrez un email valide.
+                            </span>
+                        </div>
+                    </div>
+            </div> 
+
+
+            <!-- CONNECTION INFORMATIONS-->
+            <div class="form-group">
+                <label for="login">Login</label>
+                <input type="text" class="form-control" name="login" id="login" placeholder="Pseudonyme"
+                    formControlName="login">
+                    <div class="container" *ngIf="isValidInput('login')">
+                        <div class="row">
+                            <span class="text-danger" *ngIf="accountForm.controls['login'].errors?.required">
+                                Le login doit être renseigné!
+                            </span>
+                        </div>
+                        <div class="row">
+                            <span class="text-danger" *ngIf="accountForm.controls['login'].errors?.pattern">
+                                Le nom d'utilisateur ne doit contenir que des caractères alpha-numériques et doit compter au moins 3 caractères.
+                            </span>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" class="form-control" name="password" placeholder="**********" 
+                    formControlName="password">
+                    <div class="container" *ngIf="isValidInput('password')">
+                        <div class="row">
+                            <span class="text-danger" *ngIf="accountForm.controls['password'].errors?.required">
+                                Le mot de passe doit être renseigné!
+                            </span>
+                        </div>
+                        <div class="row">
+                            <span class="text-danger" *ngIf="accountForm.controls['password'].errors?.pattern">
+                                Le taille minimum du mot de passe doit être de 8 caractères et celui-ci doit contenir au moins une majuscule, une minuscule, un caractère spécial et un chiffre!
+                            </span>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="form-group">
+                <label for="passwordConfirmation">Confirmation mot de passe</label>
+                <input type="password" class="form-control" name="passwordConfirmation" placeholder="**********"
+                    formControlName="passwordConfirmation">
+                    <div class="container" *ngIf="isValidInput('passwordConfirmation')">
+                        <div class="row">
+                            <span class="text-danger" *ngIf="accountForm.controls['passwordConfirmation'].errors?.required">
+                                Le mot de passe doit être renseigné!
+                            </span>
+                        </div>
+                        <div class="row">
+                            <span class="text-danger" *ngIf="accountForm.errors?.passwordMissmatch">
+                                Les mots de passes ne correspondent pas!
+                            </span>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="form-group">    
+                <button type="submit" class="btn btn-success">Confirmer</button> 
+            </div>  
+        </div>
+    </div>
+</form>
+
+<app-account-creation-summary *ngIf="validated" [account]="accountResponse"></app-account-creation-summary>

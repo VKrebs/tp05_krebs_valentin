@@ -1,0 +1,20 @@
+
+<div class="container-fluid text-center bg-dark text-white p-2">
+    <div class="row">
+        <div class="col-4">
+            <label for="nameFilter" class="mr-2">Rechercher</label>
+            <input id="nameFilter" type="text" class="w-75" [formControl]="nameFilter" maxlength="100" placeholder="Nom...">
+        </div>
+        <div class="col-4">
+            <label for="priceRange" class="w-25 mr-2 align-middle">Prix Maximum:</label>
+            <input id="priceRange" type="range" class="custom-range w-50 align-middle" min="0" max="100" [formControl]="maxPrice">
+            <label class="ml-2 align-middle">{{maxPrice.value}}€</label>
+        </div>
+        <div class="col-4">
+            <button class="btn btn-primary w-25" (click)="filterProducts()">Search</button>
+        </div>
+        
+    </div>
+</div>
+
+<app-catalog [products]="products"></app-catalog>

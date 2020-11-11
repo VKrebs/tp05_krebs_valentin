@@ -1,0 +1,54 @@
+<form [formGroup]="accountForm" (ngSubmit)="onSubmit()" class="form">
+    <div class="row">
+        <div class="col-md-4 offset-md-4 rounded border-0">
+            <h1 class="text-center">Formulaire de création de compte</h1>
+        </div>
+        
+        <div id="mainContainer" class="col-md-4 offset-md-4 rounded border-0">
+            <!-- CONNECTION INFORMATIONS-->
+            <div class="form-group">
+                <label for="login">Login</label>
+                <input type="text" class="form-control" name="login" id="login" placeholder="Pseudonyme"
+                    formControlName="login">
+                    <div class="container" *ngIf="isValidInput('login')">
+                        <div class="row">
+                            <span class="text-danger" *ngIf="accountForm.controls['login'].errors?.required">
+                                Le login doit être renseigné!
+                            </span>
+                        </div>
+                        <div class="row">
+                            <span class="text-danger" *ngIf="accountForm.controls['login'].errors?.pattern">
+                                Le login est trop long.
+                            </span>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" class="form-control" name="password" placeholder="**********" 
+                    formControlName="password">
+                    <div class="container" *ngIf="isValidInput('password')">
+                        <div class="row">
+                            <span class="text-danger" *ngIf="accountForm.controls['password'].errors?.required">
+                                Le mot de passe doit être renseigné!
+                            </span>
+                        </div>
+                        <div class="row">
+                            <span class="text-danger" *ngIf="accountForm.controls['password'].errors?.pattern">
+                                Le mot de passe est trop long.
+                            </span>
+                        </div>
+                    </div>
+            </div>
+            <div class>
+                <span class="text-danger" *ngIf="connectionError">
+                    Login ou mot de passe invalide.
+                </span>
+            </div>
+            <div class="form-group">    
+                <button type="submit" class="btn btn-success">Confirmer</button> 
+            </div>  
+        </div>
+    </div>
+</form>
